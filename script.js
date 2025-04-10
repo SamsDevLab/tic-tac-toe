@@ -66,25 +66,25 @@ PLAYER
 */
 
 // Start here tomorrow 04/10 - try to return getPlayers();
-// const assignPlayers = function (playerOneName, playerTwoName) {
-//   const players = [
-//     {
-//       name: playerOneName,
-//       marker: "X",
-//     },
-//     {
-//       name: playerTwoName,
-//       marker: "O",
-//     },
-//   ];
+const assignPlayers = function (playerOneName, playerTwoName) {
+  const players = [
+    {
+      name: playerOneName,
+      marker: "X",
+    },
+    {
+      name: playerTwoName,
+      marker: "O",
+    },
+  ];
 
-//   const getPlayers = () => players;
+  const getPlayers = () => players;
 
-//   return { getPlayers };
-// };
+  return { getPlayers };
+};
 
-// const result = assignPlayers("Sammy D", "Ol' Dirty Bastard");
-// console.log(result.getPlayers());
+const result = assignPlayers("Sammy D", "Ol' Dirty Bastard");
+console.log(result.getPlayers());
 
 /* 
 GAME CONTROLLER
