@@ -9,10 +9,9 @@ Tic Tac Toe
 */
 
 /* 
-Create three objects
+Create two objects
 1. Gameboard (IIFE)
-2. Player
-3. Game Controller (IIFE)
+2. Game Controller (IIFE)
 
 For single instances of objects, wrap your objects in IIFEs so they cannot be re-instantiated
 Functionality should fit in one of these three module patterns
@@ -46,8 +45,8 @@ const gameBoard = (function () {
   const getBoard = () => board;
 
   // Interact with board to place marker
-  const placeMarker = function (marker, outerIndex, innerIndex) {
-    board[outerIndex][innerIndex] = marker;
+  const placeMarker = function (marker, row, column) {
+    board[row][column] = marker;
   };
 
   // Method used to print board to the console
@@ -56,18 +55,14 @@ const gameBoard = (function () {
   return { getBoard, placeMarker, printBoard };
 })();
 
-console.log(gameBoard.printBoard());
 /*
-PLAYER
-• Pass name argruments through parameters ✅
-• Store player names in objects ✅
-• Assign their markers (X or O) ✅
-• Return players so they can interact with gameController and gameBoard
-*/
+ *****************************************************
+ */
 
-// Start here tomorrow 04/10 - try to return getPlayers();
-const assignPlayers = function (playerOneName, playerTwoName) {
-  const players = [
+const gameController = function (playerOneName, playerTwoName) {
+  const board = gameBoard;
+
+  players = [
     {
       name: playerOneName,
       marker: "X",
@@ -78,15 +73,54 @@ const assignPlayers = function (playerOneName, playerTwoName) {
     },
   ];
 
-  const getPlayers = () => players;
+  let activePlayer = players[0];
 
-  return { getPlayers };
+  const switchPlayerTurn = () => {
+    activePlayer = activePlayer === players[0] ? players[1] : players[0];
+  };
+
+  const getActivePlayer = () => activePlayer;
+
+  const printNewRound = () => {
+    board.printBoard();
+    console.log(`${getActivePlayer().name}'s turn.`);
+  };
+
+  const playRound = (row, column) => {
+    console.log(
+      `Dropping ${
+        getActivePlayer().name
+      }'s marker into row ${row}, column ${column}.`
+    );
+    board.placeMarker(getActivePlayer().marker, row - 1, column - 1);
+
+    /*  This is where we would check for a winner and handle that logic,
+        such as a win message. */
+
+    //Switch player turn
+    switchPlayerTurn();
+    printNewRound();
+  };
+
+  // Initial play game message
+  printNewRound();
+
+  return {
+    playRound,
+    getActivePlayer,
+  };
 };
 
-const result = assignPlayers("Sammy D", "Ol' Dirty Bastard");
-console.log(result.getPlayers());
+const competitors = gameController("STH", "ODB");
+// competitors.playRound(1, 2);
+// competitors.playRound(2, 1);
+// competitors.playRound(1, 1);
+// competitors.playRound(2, 2);
+// competitors.playRound(2, 3);
+// competitors.playRound(2, 3);
 
 /* 
+
 GAME CONTROLLER
 • Determine player turn through "active" player
 • Switch player turn
@@ -94,7 +128,3 @@ GAME CONTROLLER
 • Actually play the round (log player's move and drop their marker on the board)
 • Return playRound (for interaction with printBoard) and return activePlayer (this will be needed for UI)
 */
-// const gameController = function () {
-//   const players = assignPlayers();
-//   console.log(players);
-// };
