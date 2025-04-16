@@ -38,10 +38,7 @@ const gameBoard = (function () {
   const placeMarker = function (marker, row, column) {
     if (board[row][column] === "") {
       board[row][column] = marker;
-    } else
-      console.log(
-        "This cell has already been marked! Please choose a different cell."
-      );
+    }
   };
 
   // Method used to print board to the console
@@ -56,6 +53,7 @@ const gameBoard = (function () {
 
 const gameController = function (playerOneName, playerTwoName) {
   const board = gameBoard;
+  const boardArray = board.getBoard();
 
   players = [
     {
@@ -82,11 +80,15 @@ const gameController = function (playerOneName, playerTwoName) {
   };
 
   const playRound = (row, column) => {
-    console.log(
-      `${getActivePlayer().name} places "${
-        getActivePlayer().marker
-      }" into row ${row}, column ${column}.`
-    );
+    if (boardArray[row - 1][column - 1] !== "") {
+      console.log("That square is already taken! Try again!");
+      switchPlayerTurn();
+    } else
+      console.log(
+        `${getActivePlayer().name} places "${
+          getActivePlayer().marker
+        }" into row ${row}, column ${column}.`
+      );
 
     board.placeMarker(getActivePlayer().marker, row - 1, column - 1);
 
@@ -109,13 +111,15 @@ const gameController = function (playerOneName, playerTwoName) {
       [2, 4, 6],
     ];
 
-    const includesAll = (boardArr, winningCombo) =>
-      winningCombo.every((value) =>
-        boardArr[value].includes(getActivePlayer().marker)
+    const includesAll = (boardValues, comboValues) =>
+      comboValues.every((value) =>
+        boardValues[value].includes(getActivePlayer().marker)
       );
 
     function checkForWinner() {
-      const boardValues = board.getBoard().flat();
+      // const boardValues = board.getBoard().flat();
+      const boardValues = boardArray.flat();
+      // console.log(boardValues);
 
       function announceWinner() {
         console.log(
@@ -147,18 +151,20 @@ const gameController = function (playerOneName, playerTwoName) {
 };
 
 const competitors = gameController("STH", "ODB");
-competitors.playRound(1, 1);
-competitors.playRound(1, 3);
-competitors.playRound(1, 3);
-// competitors.playRound(3, 1);
+// competitors.playRound(1, 1);
+// competitors.playRound(1, 1);
+// competitors.playRound(1, 2);
+// competitors.playRound(1, 2);
+// competitors.playRound(1, 3);
+// competitors.playRound(2, 2);
+// competitors.playRound(2, 1);
 // competitors.playRound(3, 2);
-// competitors.playRound(3, 3);
 
 /*
  Bugs and Features to Work on After Lunch:
 
  Bugs:
- - Current player can overwrite previous player's value
+ - ✅ Current player can overwrite previous player's value
   • Prevent program from switching player turns
   • Console.log a message saying "This cell has already been marked!"
  - Still switches player turn after win 
