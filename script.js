@@ -116,18 +116,17 @@ const gameController = function (playerOneName, playerTwoName) {
         boardValues[value].includes(getActivePlayer().marker)
       );
 
-    function checkForWinner() {
-      // const boardValues = board.getBoard().flat();
-      const boardValues = boardArray.flat();
-      // console.log(boardValues);
+    const announceWinner = function () {
+      const winner = `${getActivePlayer().name} got three in a row! ${
+        getActivePlayer().name
+      } wins the game!`;
 
-      function announceWinner() {
-        console.log(
-          `${getActivePlayer().name} got three in a row! ${
-            getActivePlayer().name
-          } wins the game!`
-        );
-      }
+      console.log(winner);
+    };
+
+    function checkForWinner() {
+      const boardValues = boardArray.flat();
+
       winningCombos.forEach((comboValues) => {
         if (includesAll(boardValues, comboValues) === true) {
           announceWinner();
@@ -135,6 +134,7 @@ const gameController = function (playerOneName, playerTwoName) {
       });
     }
 
+    // console.log(winner);
     //Switch player turn
     checkForWinner();
     switchPlayerTurn();
@@ -151,22 +151,22 @@ const gameController = function (playerOneName, playerTwoName) {
 };
 
 const competitors = gameController("STH", "ODB");
-// competitors.playRound(1, 1);
-// competitors.playRound(1, 1);
-// competitors.playRound(1, 2);
-// competitors.playRound(1, 2);
-// competitors.playRound(1, 3);
-// competitors.playRound(2, 2);
-// competitors.playRound(2, 1);
-// competitors.playRound(3, 2);
+competitors.playRound(1, 1);
+competitors.playRound(2, 1);
+competitors.playRound(1, 2);
+competitors.playRound(2, 2);
+competitors.playRound(1, 3);
+competitors.playRound(2, 2);
+competitors.playRound(2, 1);
+competitors.playRound(3, 2);
 
 /*
  Bugs and Features to Work on After Lunch:
 
  Bugs:
  - ✅ Current player can overwrite previous player's value
-  • Prevent program from switching player turns
-  • Console.log a message saying "This cell has already been marked!"
+  • ✅ Prevent program from switching player turns
+  • ✅ Console.log a message saying "This cell has already been marked!"
  - Still switches player turn after win 
  - Can still play the game after winner is declared
  */
