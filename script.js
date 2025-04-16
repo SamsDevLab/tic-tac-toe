@@ -1,14 +1,4 @@
 /* 
-Tic Tac Toe
-• Two Players
-• One player's "marker" is "X", the other is "O"
-• "X" (playerOne) goes first
-• Turns alternate between players
-• Placing a marker signifies the end of the turn - turn will then switch to alt player
-• Once someone places three markers in a row (whether diagonal, vertical, or horizontal), they win the game - will need to print message accordingly
-*/
-
-/* 
 Create two objects
 1. Gameboard (IIFE)
 2. Game Controller (IIFE)
@@ -88,16 +78,55 @@ const gameController = function (playerOneName, playerTwoName) {
 
   const playRound = (row, column) => {
     console.log(
-      `Dropping ${
-        getActivePlayer().name
-      }'s marker into row ${row}, column ${column}.`
+      `${getActivePlayer().name} places "${
+        getActivePlayer().marker
+      }" into row ${row}, column ${column}.`
     );
     board.placeMarker(getActivePlayer().marker, row - 1, column - 1);
 
-    /*  This is where we would check for a winner and handle that logic,
-        such as a win message. */
+    /****************
+    Winning the Game 
+    ****************/
+    const winningCombos = [
+      // Across (L or R):
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+
+      // Down or Up
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+
+      // Diagonal
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+
+    const includesAll = (boardArr, winningCombo) =>
+      winningCombo.every((value) =>
+        boardArr[value].includes(getActivePlayer().marker)
+      );
+
+    function checkForWinner() {
+      const boardValues = board.getBoard().flat();
+
+      function announceWinner() {
+        console.log(
+          `${getActivePlayer().name} got three in a row! ${
+            getActivePlayer().name
+          } wins the game!`
+        );
+      }
+      winningCombos.forEach((comboValues) => {
+        if (includesAll(boardValues, comboValues) === true) {
+          announceWinner();
+        }
+      });
+    }
 
     //Switch player turn
+    checkForWinner();
     switchPlayerTurn();
     printNewRound();
   };
@@ -112,19 +141,9 @@ const gameController = function (playerOneName, playerTwoName) {
 };
 
 const competitors = gameController("STH", "ODB");
-// competitors.playRound(1, 2);
-// competitors.playRound(2, 1);
-// competitors.playRound(1, 1);
-// competitors.playRound(2, 2);
-// competitors.playRound(2, 3);
-// competitors.playRound(2, 3);
-
-/* 
-
-GAME CONTROLLER
-• Determine player turn through "active" player
-• Switch player turn
-• Print new round to printBoard (this will announce whose turn it is)
-• Actually play the round (log player's move and drop their marker on the board)
-• Return playRound (for interaction with printBoard) and return activePlayer (this will be needed for UI)
-*/
+competitors.playRound(1, 1);
+competitors.playRound(2, 2);
+competitors.playRound(1, 2);
+competitors.playRound(3, 1);
+competitors.playRound(3, 2);
+competitors.playRound(1, 3);
