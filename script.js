@@ -36,7 +36,12 @@ const gameBoard = (function () {
 
   // Interact with board to place marker
   const placeMarker = function (marker, row, column) {
-    board[row][column] = marker;
+    if (board[row][column] === "") {
+      board[row][column] = marker;
+    } else
+      console.log(
+        "This cell has already been marked! Please choose a different cell."
+      );
   };
 
   // Method used to print board to the console
@@ -82,6 +87,7 @@ const gameController = function (playerOneName, playerTwoName) {
         getActivePlayer().marker
       }" into row ${row}, column ${column}.`
     );
+
     board.placeMarker(getActivePlayer().marker, row - 1, column - 1);
 
     /****************
@@ -142,8 +148,19 @@ const gameController = function (playerOneName, playerTwoName) {
 
 const competitors = gameController("STH", "ODB");
 competitors.playRound(1, 1);
-competitors.playRound(2, 2);
-competitors.playRound(1, 2);
-competitors.playRound(3, 1);
-competitors.playRound(3, 2);
 competitors.playRound(1, 3);
+competitors.playRound(1, 3);
+// competitors.playRound(3, 1);
+// competitors.playRound(3, 2);
+// competitors.playRound(3, 3);
+
+/*
+ Bugs and Features to Work on After Lunch:
+
+ Bugs:
+ - Current player can overwrite previous player's value
+  • Prevent program from switching player turns
+  • Console.log a message saying "This cell has already been marked!"
+ - Still switches player turn after win 
+ - Can still play the game after winner is declared
+ */
