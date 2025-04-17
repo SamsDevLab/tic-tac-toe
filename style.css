@@ -131,13 +131,13 @@ h1 {
 }
 
 .header-container,
-.board {
+.board-container {
   position: absolute;
   z-index: 2;
 }
 
 /* Game Board */
-.board {
+.board-container {
   bottom: 20%;
   left: 36.5%;
   height: 400px;
@@ -152,7 +152,15 @@ h1 {
   border: 0.4rem solid #eee8aa;
 }
 
-.board-tiles {
+.board-squares:focus {
+  outline: 2px solid #eee8aa;
+}
+
+.board-squares {
   background-color: #ff6f61;
+  color: #000000;
   border-radius: 0.5rem;
+  font-family: "VT323";
+  font-size: 4rem;
+  border: none;
 }
