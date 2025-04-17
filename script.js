@@ -22,37 +22,23 @@ const gameBoard = (function () {
   const columns = 3;
 
   // Actual Game Board:
-  const board = [];
+  // const board = [];
 
-  for (let i = 0; i < rows; i++) {
-    board[i] = [];
+  // for (let i = 0; i < rows; i++) {
+  //   board[i] = [];
 
-    for (let j = 0; j < columns; j++) {
-      const cell = "";
-      board[i].push(cell);
-    }
-  }
+  //   for (let j = 0; j < columns; j++) {
+  //     const cell = "";
+  //     board[i].push(cell);
+  //   }
+  // }
 
-  // Win Game Testing
-  // const board = [
-  //   ["X", "O", ""],
-  //   ["X", "", ""],
-  //   ["", "", "O"],
-  // ];
-
-  // Tie Game Testing
-  // const board = [
-  //   ["X", "O", ""],
-  //   ["X", "X", "O"],
-  //   ["O", "X", "O"],
-  // ];
-
-  // Second "Tie" Test Board. Tie should only happen when board is completely full.
-  // const board = [
-  //   ["X", "", ""],
-  //   ["X", "X", "O"],
-  //   ["O", "X", "O"],
-  // ];
+  //DOM Test Board
+  const board = [
+    ["X", "O", "X"],
+    ["X", "X", "O"],
+    ["O", "X", "O"],
+  ];
 
   // Method used to grab board as a whole to interact with the DOM
   const getBoard = () => board;
@@ -185,9 +171,31 @@ const gameController = function (playerOneName, playerTwoName) {
   };
 };
 
-// const displayController = function () {};
+/*
+ *****************************************************
+ */
 
-const competitors = gameController("STH", "ODB");
+// Call playRound when user clicks on an input
+// Display the new active player after each round
+// Tally the game winner
+
+const displayController = (function () {
+  // Grab game controller
+  const boardArr = gameBoard.getBoard();
+  const board = document.querySelector(".board-container");
+
+  // Render Board Squares
+  boardArr.forEach((row) =>
+    row.forEach((column) => {
+      const button = document.createElement("button");
+      button.classList.add("board-squares");
+      button.innerText = column;
+      board.appendChild(button);
+    })
+  );
+})();
+
+// const competitors = gameController("STH", "ODB");
 // Win Test
 // competitors.playRound(3, 1);
 
@@ -206,6 +214,12 @@ const competitors = gameController("STH", "ODB");
 
 /*
  Bugs:
+
+ • Unsolved:
+ 
+
+
+ • Solved:
  - ✅ Current player can overwrite previous player's value
   • ✅ Prevent program from switching player turns
   • ✅ Console.log a message saying "This cell has already been marked!"
