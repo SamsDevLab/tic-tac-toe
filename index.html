@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Tic Tac Toe by Sam's Dev Lab</title>
+    <title>Boing Tac Toe</title>
   </head>
   <body>
     <div class="main-container">
@@ -16,36 +16,14 @@
       <div class="header-container">
         <h1>Boing Tac Toe</h1>
       </div>
-      <div class="board">
-        <div class="board-tiles">
-          <p class=""></p>
-        </div>
-        <div class="board-tiles">
-          <p class=""></p>
-        </div>
-        <div class="board-tiles">
-          <p class=""></p>
-        </div>
-        <div class="board-tiles">
-          <p class=""></p>
-        </div>
-        <div class="board-tiles">
-          <p class=""></p>
-        </div>
-        <div class="board-tiles">
-          <p class=""></p>
-        </div>
-        <div class="board-tiles">
-          <p class=""></p>
-        </div>
-        <div class="board-tiles">
-          <p class=""></p>
-        </div>
-        <div class="board-tiles">
-          <p class=""></p>
-        </div>
-      </div>
+      <div class="board-container"></div>
     </div>
     <script src="script.js"></script>
   </body>
 </html>
+
+<!--
+Bugs:
+• header-container and board move independent since they are both absolute positioning on a z-index: 1
+• Wrap them together in a div then maybe check the z-index of main-container in css and see if you can make it live at z-index: -1 (below the surface - I don't think this is possible, but check.)
+-->
