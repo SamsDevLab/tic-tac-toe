@@ -20,6 +20,8 @@ const gameBoard = (function () {
   // Create board
   const rows = 3;
   const columns = 3;
+
+  // Actual Game Board:
   const board = [];
 
   for (let i = 0; i < rows; i++) {
@@ -30,6 +32,27 @@ const gameBoard = (function () {
       board[i].push(cell);
     }
   }
+
+  // Win Game Testing
+  // const board = [
+  //   ["X", "O", ""],
+  //   ["X", "", ""],
+  //   ["", "", "O"],
+  // ];
+
+  // Tie Game Testing
+  // const board = [
+  //   ["X", "O", ""],
+  //   ["X", "X", "O"],
+  //   ["O", "X", "O"],
+  // ];
+
+  // Second "Tie" Test Board. Tie should only happen when board is completely full.
+  // const board = [
+  //   ["X", "", ""],
+  //   ["X", "X", "O"],
+  //   ["O", "X", "O"],
+  // ];
 
   // Method used to grab board as a whole to interact with the DOM
   const getBoard = () => board;
@@ -111,8 +134,8 @@ const gameController = function (playerOneName, playerTwoName) {
       [2, 4, 6],
     ];
 
-    const includesAll = (boardValues, comboValues) =>
-      comboValues.every((value) =>
+    const includesAll = (boardValues, combo) =>
+      combo.every((value) =>
         boardValues[value].includes(getActivePlayer().marker)
       );
 
@@ -124,17 +147,29 @@ const gameController = function (playerOneName, playerTwoName) {
       console.log(winner);
     };
 
+    const checkForTie = function (boardValues) {
+      if (boardValues.every((index) => index !== "")) {
+        return true;
+      }
+    };
+
+    const announceTie = function () {
+      const tieGame = "Tie Game!";
+      console.log(tieGame);
+    };
+
     function checkForWinner() {
       const boardValues = boardArray.flat();
 
-      winningCombos.forEach((comboValues) => {
-        if (includesAll(boardValues, comboValues) === true) {
+      winningCombos.forEach((combo) => {
+        if (includesAll(boardValues, combo) === true) {
           announceWinner();
+        } else if (checkForTie(boardValues) === true) {
+          announceTie();
         }
       });
     }
 
-    // console.log(winner);
     //Switch player turn
     checkForWinner();
     switchPlayerTurn();
@@ -150,23 +185,31 @@ const gameController = function (playerOneName, playerTwoName) {
   };
 };
 
+// const displayController = function () {};
+
 const competitors = gameController("STH", "ODB");
-competitors.playRound(1, 1);
-competitors.playRound(2, 1);
-competitors.playRound(1, 2);
-competitors.playRound(2, 2);
-competitors.playRound(1, 3);
-competitors.playRound(2, 2);
-competitors.playRound(2, 1);
-competitors.playRound(3, 2);
+// Win Test
+// competitors.playRound(3, 1);
+
+// Tie Test
+// competitors.playRound(1, 3);
+
+// competitors.playRound(1, 1);
+// competitors.playRound(1, 2);
+// competitors.playRound(2, 1);
+// competitors.playRound(3, 1);
+// competitors.playRound(3, 2);
+// competitors.playRound(2, 2);
+// competitors.playRound(1, 3);
+// competitors.playRound(2, 3);
+// competitors.playRound(3, 3);
 
 /*
- Bugs and Features to Work on After Lunch:
-
  Bugs:
  - ✅ Current player can overwrite previous player's value
   • ✅ Prevent program from switching player turns
   • ✅ Console.log a message saying "This cell has already been marked!"
- - Still switches player turn after win 
- - Can still play the game after winner is declared
+ - ✅ Still switches player turn after win (This is just due to me manually calling switchActivePlayer and printNewRound. This shouldn't be an issue when interacting with the DOM)
+ - ✅ Can still play the game after winner is declared (same as above - should be able to solve this with a modal popup/alert in the DOM)
+ - ✅ Program logic to account for a tie (this may need to occur in checkForWinner() => winningCombos. Attempted this yesterday with the else if that is still there) START HERE TOMORROW (04/17)
  */
