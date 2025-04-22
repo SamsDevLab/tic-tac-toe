@@ -22,23 +22,23 @@ const gameBoard = (function () {
   const columns = 3;
 
   // Actual Game Board:
-  // const board = [];
+  const board = [];
 
-  // for (let i = 0; i < rows; i++) {
-  //   board[i] = [];
+  for (let i = 0; i < rows; i++) {
+    board[i] = [];
 
-  //   for (let j = 0; j < columns; j++) {
-  //     const cell = "";
-  //     board[i].push(cell);
-  //   }
-  // }
+    for (let j = 0; j < columns; j++) {
+      const cell = "";
+      board[i].push(cell);
+    }
+  }
 
-  //DOM Test Board
-  const board = [
-    ["X", "O", "X"],
-    ["X", "X", "O"],
-    ["O", "X", "O"],
-  ];
+  // Testing Display Controller
+  // const board = [
+  //   ["X", "O", "X"],
+  //   ["X", "X", "O"],
+  //   ["O", "X", "O"],
+  // ];
 
   // Method used to grab board as a whole to interact with the DOM
   const getBoard = () => board;
@@ -168,6 +168,7 @@ const gameController = function (playerOneName, playerTwoName) {
   return {
     playRound,
     getActivePlayer,
+    getBoard: board.getBoard,
   };
 };
 
@@ -175,41 +176,61 @@ const gameController = function (playerOneName, playerTwoName) {
  *****************************************************
  */
 
-// Call playRound when user clicks on an input
-// Display the new active player after each round
-// Tally the game winner
-
 const displayController = (function () {
-  // Grab game controller
-  const boardArr = gameBoard.getBoard();
-  const board = document.querySelector(".board-container");
+  const game = gameController();
+  // console.log(game);
+  const boardDiv = document.querySelector(".board-container");
 
-  // Render Board Squares
-  boardArr.forEach((row) =>
-    row.forEach((column) => {
-      const button = document.createElement("button");
-      button.classList.add("board-squares");
-      button.innerText = column;
-      board.appendChild(button);
-    })
-  );
+  const updateScreen = () => {
+    boardDiv.innerText = "";
+
+    // Get newest version of board
+    const board = game.getBoard();
+    const activePlayer = game.getActivePlayer();
+    // console.log(board);
+
+    // Display Player's Turn
+    // playerTurnDiv.innerText =
+
+    board.forEach((row, index) => {
+      const rowElement = document.createElement("div");
+      rowElement.classList.add("row");
+      rowElement.dataset.row = index;
+      boardDiv.appendChild(rowElement);
+
+      row.forEach((cell, index) => {
+        const cellButton = document.createElement("button");
+        cellButton.classList.add("cell");
+        cellButton.dataset.column = index;
+        cellButton.innerText = cell;
+        rowElement.appendChild(cellButton);
+      });
+    });
+  };
+
+  function clickHandlerBoard(e) {
+    const selectedColumn = e.target.dataset.column;
+    if (!selectedColumn) return;
+
+    game.playRound(selectedColumn);
+    updateScreen();
+  }
+  boardDiv.addEventListener("click", clickHandlerBoard);
+
+  updateScreen();
 })();
 
-// const competitors = gameController("STH", "ODB");
-// Win Test
-// competitors.playRound(3, 1);
-
-// Tie Test
-// competitors.playRound(1, 3);
+const competitors = gameController("STH", "ODB");
 
 // competitors.playRound(1, 1);
 // competitors.playRound(1, 2);
 // competitors.playRound(2, 1);
 // competitors.playRound(3, 1);
-// competitors.playRound(3, 2);
-// competitors.playRound(2, 2);
 // competitors.playRound(1, 3);
+// competitors.playRound(2, 2);
+// competitors.playRound(3, 2);
 // competitors.playRound(2, 3);
+// competitors.playRound(3, 3);
 // competitors.playRound(3, 3);
 
 /*
