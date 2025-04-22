@@ -89,7 +89,7 @@ const gameController = function (playerOneName, playerTwoName) {
   };
 
   const playRound = (row, column) => {
-    if (boardArray[row - 1][column - 1] !== "") {
+    if (boardArray[row][column] !== "") {
       console.log("That square is already taken! Try again!");
       switchPlayerTurn();
     } else
@@ -99,7 +99,7 @@ const gameController = function (playerOneName, playerTwoName) {
         }" into row ${row}, column ${column}.`
       );
 
-    board.placeMarker(getActivePlayer().marker, row - 1, column - 1);
+    board.placeMarker(getActivePlayer().marker, row, column);
 
     /****************
     Winning the Game 
@@ -209,10 +209,14 @@ const displayController = (function () {
   };
 
   function clickHandlerBoard(e) {
-    const selectedColumn = e.target.dataset.column;
-    if (!selectedColumn) return;
+    const columnValue = e.target.dataset.column;
+    const row = e.target.closest(".row");
+    const rowValue = row.dataset.row;
 
-    game.playRound(selectedColumn);
+    // const selectedColumn = e.target.dataset.column;
+    if (!columnValue) return;
+
+    game.playRound(rowValue, columnValue);
     updateScreen();
   }
   boardDiv.addEventListener("click", clickHandlerBoard);
@@ -220,7 +224,7 @@ const displayController = (function () {
   updateScreen();
 })();
 
-const competitors = gameController("STH", "ODB");
+// const competitors = gameController("STH", "ODB");
 
 // competitors.playRound(1, 1);
 // competitors.playRound(1, 2);
