@@ -33,13 +33,6 @@ const gameBoard = (function () {
     }
   }
 
-  // Testing Display Controller
-  // const board = [
-  //   ["X", "O", "X"],
-  //   ["X", "X", "O"],
-  //   ["O", "X", "O"],
-  // ];
-
   // Method used to grab board as a whole to interact with the DOM
   const getBoard = () => board;
 
@@ -221,23 +214,23 @@ const displayController = (function () {
   }
   boardDiv.addEventListener("click", clickHandlerBoard);
 
+  const modal = document.querySelector(".player-modal");
+  modal.showModal();
   updateScreen();
 })();
 
 // const competitors = gameController("STH", "ODB");
 
-// competitors.playRound(1, 1);
-// competitors.playRound(1, 2);
-// competitors.playRound(2, 1);
-// competitors.playRound(3, 1);
-// competitors.playRound(1, 3);
-// competitors.playRound(2, 2);
-// competitors.playRound(3, 2);
-// competitors.playRound(2, 3);
-// competitors.playRound(3, 3);
-// competitors.playRound(3, 3);
-
 /*
+Features:
+Start here tomorrow 04/23 (or tonight 04/22)
+• Figure out absolute positioning for modal (or if you can do this another way)
+• Create a modal upon screen load which forces user to input names before starting the game
+• Submit button will pass username arguments to gameController
+• This should happen within displayController module
+• 
+
+
  Bugs:
 
  • Unsolved:
