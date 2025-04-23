@@ -13,8 +13,23 @@
         class="background-image"
         alt="Earth with Aliens"
       />
+      <dialog data-modal class="player-modal">
+        <h1>Let's Play Boing Tac Toe!</h1>
+        <h2>Who's Playing Today?</h2>
+        <form action="" method="get" class="form">
+          <div>
+            <label for="player-one">Player One</label>
+            <input type="text" id="player-one" required />
+          </div>
+          <div>
+            <label for="player-two">Player Two</label>
+            <input type="text" id="player-two" required />
+          </div>
+          <button class="start-game-button">Start the Game!</button>
+        </form>
+      </dialog>
       <div class="header-container">
-        <h1>Boing Tac Toe</h1>
+        <h2>Boing Tac Toe</h2>
       </div>
       <div class="board-container"></div>
     </div>
