@@ -110,24 +110,86 @@ Distinct and fun.
   width: 100vw;
 }
 
+/* Modal Begins */
+
+.player-modal {
+  height: 75vh;
+  width: 50vw;
+  top: 10%;
+  left: 25%;
+  gap: 1.5rem;
+  color: #ff6f61;
+  border-radius: 1rem;
+  border: 0.4rem solid #eee8aa;
+  background-color: #000000;
+}
+
+.player-modal,
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  gap: 1.5rem;
+}
+
+.player-modal h1 {
+  font-family: "PressStart2P"; /**/
+  font-size: 1.65rem;
+}
+
+.player-modal h2 {
+  font-family: "VT323";
+  font-size: 2.5rem;
+}
+.form label,
+.form input,
+.start-game-button {
+  font-family: "VT323";
+  font-size: 1.75rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form input {
+  padding-left: 0.2rem;
+}
+
+.form input:focus {
+  outline: 2px solid #eee8aa;
+}
+
+.start-game-button {
+  background-color: #ff6f61;
+  border-radius: 0.5rem;
+  padding: 0.4rem;
+  border: none;
+}
+
+.start-game-button:focus {
+  outline: 2px solid #eee8aa;
+}
+
+/* Modal Ends */
+
 /* Header Text */
 .header-container {
   top: 6rem;
   left: 34rem;
-  border-radius: 1rem;
-  border: 0.4rem solid #eee8aa;
-  background-color: black;
-  color: #ff6f61;
   height: 5rem;
   width: 30rem;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  color: #ff6f61;
+  border-radius: 1rem;
+  border: 0.4rem solid #eee8aa;
+  background-color: #000000;
 }
 
-h1 {
+.header-container h2 {
   font-family: "PressStart2P";
-  font-size: 2rem;
 }
 
 .header-container,
@@ -142,13 +204,13 @@ h1 {
   left: 36.5%;
   height: 400px;
   width: 400px;
-  background-color: #000000;
-  border-radius: 1rem;
   gap: 0.3rem;
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
+  border-radius: 1rem;
   border: 0.4rem solid #eee8aa;
+  background-color: #000000;
 }
 
 .row {
