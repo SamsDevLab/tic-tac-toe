@@ -186,7 +186,7 @@ Distinct and fun.
 .game-container {
   position: absolute;
   z-index: 2;
-  top: 5rem;
+  top: 3rem;
   left: 34rem;
   display: flex;
   flex-direction: column;
@@ -195,7 +195,6 @@ Distinct and fun.
 }
 
 .header-container,
-.player-turn-container,
 .board-container {
   border-radius: 1rem;
   border: 0.4rem solid #eee8aa;
@@ -203,11 +202,13 @@ Distinct and fun.
 }
 
 .header-container {
-  height: 6rem;
-  width: 30rem;
+  height: 10rem;
+  width: 32rem;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
   color: #ff6f61;
 }
 
@@ -216,11 +217,17 @@ Distinct and fun.
   font-size: 2rem;
 }
 
+.header-container hr {
+  margin-top: 0.5rem;
+  width: 9rem;
+  border: 1px dashed #eee8aa;
+}
+
 .player-turn-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 4rem;
+  height: 2rem;
   width: 25rem;
   color: #ff6f61;
   font-family: "VT323";
