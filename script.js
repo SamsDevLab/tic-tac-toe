@@ -1,7 +1,8 @@
 /* 
 Create two objects
 1. Gameboard (IIFE)
-2. Game Controller (IIFE)
+2. Game Controller
+3. displayContoller
 
 For single instances of objects, wrap your objects in IIFEs so they cannot be re-instantiated
 Functionality should fit in one of these three module patterns
@@ -194,12 +195,14 @@ const displayController = (function () {
     const boardDiv = document.querySelector(".board-container");
     boardDiv.innerText = "";
 
+    console.log(currentGameController);
     // Get newest version of board
     const board = currentGameController.getBoard();
-    const activePlayer = currentGameController.getActivePlayer();
+    const activePlayer = currentGameController.getActivePlayer().name;
+    console.log(activePlayer);
 
-    // Display Player's Turn
-    // playerTurnDiv.innerText =
+    const playerTurnDiv = document.querySelector(".player-turn-container");
+    playerTurnDiv.innerText = `${activePlayer}'s turn!`;
 
     board.forEach((row, index) => {
       const rowElement = document.createElement("div");
@@ -217,10 +220,6 @@ const displayController = (function () {
     });
   };
 
-  // Start here after dinner 04/23:
-  // Commit the clickHandler and openModal functions. Check your git log to ensure you haven't already done this.
-  // Create a display box for the competitors
-  // Actively Switch the competitors from turn to turn
   function clickHandlerBoard(e) {
     const columnValue = e.target.dataset.column;
     const row = e.target.closest(".row");
@@ -241,14 +240,15 @@ const displayController = (function () {
 /*
 Features:
 
-• Modal is working. However, gameContoller is being called from displayController BEFORE modal can even be filled out.
-••• This is causing two "undefined" values to pass into the gameController from the beginning, when it should be the user names.
-••• May have to step through the code and assess how to call the gameController separately (after the inital name values have been passed in)
-
 
  Bugs:
 
  • Unsolved:
+ Start here tomorrow (04/23)
+ --- Game keeps running after someone has won.
+ --- Look into ending game (and board functionality) after someone wins.
+ --- Announce winner in the player Box
+ --- Maybe include highlights when the box becomes a winner box
  
 
 
