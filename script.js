@@ -58,6 +58,8 @@ const gameController = function (playerOneName, playerTwoName) {
   const board = gameBoard;
   const boardArray = board.getBoard();
 
+  const removeBoardEventListeners = displayController.disableBoard;
+
   players = [
     {
       name: playerOneName,
@@ -144,8 +146,13 @@ const gameController = function (playerOneName, playerTwoName) {
       winningCombos.forEach((combo) => {
         if (includesAll(boardValues, combo) === true) {
           announceWinner();
+          removeBoardEventListeners();
+          return true;
+          // disableBoard();
         } else if (checkForTie(boardValues) === true) {
           announceTie();
+          removeBoardEventListeners();
+          return true;
         }
       });
     }
@@ -195,14 +202,14 @@ const displayController = (function () {
     const boardDiv = document.querySelector(".board-container");
     boardDiv.innerText = "";
 
-    console.log(currentGameController);
     // Get newest version of board
     const board = currentGameController.getBoard();
-    const activePlayer = currentGameController.getActivePlayer().name;
-    console.log(activePlayer);
+    const activePlayerName = currentGameController.getActivePlayer().name;
+    const activePlayerMarker = currentGameController.getActivePlayer().marker;
+    // console.log(activePlayer);
 
     const playerTurnDiv = document.querySelector(".player-turn-container");
-    playerTurnDiv.innerText = `${activePlayer}'s turn!`;
+    playerTurnDiv.innerText = ` ${activePlayerName}'s turn! (${activePlayerMarker})`;
 
     board.forEach((row, index) => {
       const rowElement = document.createElement("div");
@@ -234,7 +241,18 @@ const displayController = (function () {
 
   boardDiv.addEventListener("click", clickHandlerBoard);
 
+  const disableBoard = function () {
+    boardDiv.removeEventListener("click", clickHandlerBoard);
+  };
+
+  // const resetButton = document.querySelector(".reset-button");
+  // resetButton.addEventListener("click", resetGame);
+
   openModal();
+
+  return {
+    disableBoard,
+  };
 })();
 
 /*
@@ -245,10 +263,21 @@ Features:
 
  • Unsolved:
  Start here tomorrow (04/23)
+ Game Keeps Running
  --- Game keeps running after someone has won.
  --- Look into ending game (and board functionality) after someone wins.
  --- Announce winner in the player Box
  --- Maybe include highlights when the box becomes a winner box
+ --- nNeed to remove event listeners from board.
+
+
+Reset Board Button
+--- Reset board button needs to clear the board array and restart the game.
+--- Do you want to force the users to choose new names?
+
+Design Choices
+--- May make X and O only show up in the modal when choosing a player name.
+--- May remove from the game itself, we'll see
  
 
 
