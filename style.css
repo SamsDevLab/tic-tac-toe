@@ -195,7 +195,8 @@ Distinct and fun.
 }
 
 .header-container,
-.board-container {
+.board-container,
+.reset-button {
   border-radius: 1rem;
   border: 0.4rem solid #eee8aa;
   background-color: #000000;
@@ -273,8 +274,8 @@ Distinct and fun.
   height: 3rem;
   width: 10rem;
   border-radius: 1rem;
-  color: #000000;
+  /* color: #000000;
   background-color: #ff6f61;
   border: 5px solid #000000;
-  outline: 5px solid #eee8aa;
+  outline: 5px solid #eee8aa; */
 }
