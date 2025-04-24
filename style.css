@@ -112,7 +112,11 @@ Distinct and fun.
 
 /* Modal Begins */
 
-.player-modal {
+.player-modal:open {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 75vh;
   width: 50vw;
   top: 10%;
@@ -122,9 +126,12 @@ Distinct and fun.
   border-radius: 1rem;
   border: 0.4rem solid #eee8aa;
   background-color: #000000;
+  backdrop-filter: blur(40px);
+}
+.player-modal::backdrop {
+  backdrop-filter: blur(5px);
 }
 
-.player-modal,
 .form {
   display: flex;
   flex-direction: column;
