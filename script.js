@@ -170,17 +170,33 @@ const gameController = function (playerOneName, playerTwoName) {
  */
 
 const displayController = (function () {
-  const game = gameController();
-  // console.log(game);
   const boardDiv = document.querySelector(".board-container");
+  let currentGameController;
 
-  const updateScreen = () => {
+  const openModal = function () {
+    const modal = document.querySelector(".player-modal");
+    modal.showModal();
+
+    const form = document.querySelector(".form");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const playerOne = document.querySelector("#player-one").value;
+      const playerTwo = document.querySelector("#player-two").value;
+
+      currentGameController = gameController(playerOne, playerTwo);
+
+      updateScreen();
+      modal.close();
+    });
+  };
+
+  const updateScreen = function () {
+    const boardDiv = document.querySelector(".board-container");
     boardDiv.innerText = "";
 
     // Get newest version of board
-    const board = game.getBoard();
-    const activePlayer = game.getActivePlayer();
-    // console.log(board);
+    const board = currentGameController.getBoard();
+    const activePlayer = currentGameController.getActivePlayer();
 
     // Display Player's Turn
     // playerTurnDiv.innerText =
@@ -201,6 +217,10 @@ const displayController = (function () {
     });
   };
 
+  // Start here after dinner 04/23:
+  // Commit the clickHandler and openModal functions. Check your git log to ensure you haven't already done this.
+  // Create a display box for the competitors
+  // Actively Switch the competitors from turn to turn
   function clickHandlerBoard(e) {
     const columnValue = e.target.dataset.column;
     const row = e.target.closest(".row");
@@ -209,26 +229,21 @@ const displayController = (function () {
     // const selectedColumn = e.target.dataset.column;
     if (!columnValue) return;
 
-    game.playRound(rowValue, columnValue);
+    currentGameController.playRound(rowValue, columnValue);
     updateScreen();
   }
+
   boardDiv.addEventListener("click", clickHandlerBoard);
 
-  const modal = document.querySelector(".player-modal");
-  modal.showModal();
-  updateScreen();
+  openModal();
 })();
-
-// const competitors = gameController("STH", "ODB");
 
 /*
 Features:
-Start here tomorrow 04/23 (or tonight 04/22)
-• Figure out absolute positioning for modal (or if you can do this another way)
-• Create a modal upon screen load which forces user to input names before starting the game
-• Submit button will pass username arguments to gameController
-• This should happen within displayController module
-• 
+
+• Modal is working. However, gameContoller is being called from displayController BEFORE modal can even be filled out.
+••• This is causing two "undefined" values to pass into the gameController from the beginning, when it should be the user names.
+••• May have to step through the code and assess how to call the gameController separately (after the inital name values have been passed in)
 
 
  Bugs:
@@ -243,5 +258,5 @@ Start here tomorrow 04/23 (or tonight 04/22)
   • ✅ Console.log a message saying "This cell has already been marked!"
  - ✅ Still switches player turn after win (This is just due to me manually calling switchActivePlayer and printNewRound. This shouldn't be an issue when interacting with the DOM)
  - ✅ Can still play the game after winner is declared (same as above - should be able to solve this with a modal popup/alert in the DOM)
- - ✅ Program logic to account for a tie (this may need to occur in checkForWinner() => winningCombos. Attempted this yesterday with the else if that is still there) START HERE TOMORROW (04/17)
+ - ✅ Program logic to account for a tie (this may need to occur in checkForWinner() => winningCombos. Attempted this yesterday with the else if that is still there) 
  */
