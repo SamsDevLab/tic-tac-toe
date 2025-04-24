@@ -57,7 +57,6 @@ const gameBoard = (function () {
 const gameController = function (playerOneName, playerTwoName) {
   const board = gameBoard;
   const boardArray = board.getBoard();
-
   const removeBoardEventListeners = displayController.disableBoard;
 
   players = [
@@ -142,25 +141,29 @@ const gameController = function (playerOneName, playerTwoName) {
 
     function checkForWinner() {
       const boardValues = boardArray.flat();
+      let endOfGame;
 
       winningCombos.forEach((combo) => {
         if (includesAll(boardValues, combo) === true) {
           announceWinner();
           removeBoardEventListeners();
-          return true;
-          // disableBoard();
+          endOfGame = true;
         } else if (checkForTie(boardValues) === true) {
           announceTie();
           removeBoardEventListeners();
-          return true;
+          endOfGame = true;
         }
       });
+
+      return { endOfGame };
     }
 
     //Switch player turn
     checkForWinner();
-    switchPlayerTurn();
-    printNewRound();
+    if (checkForWinner().endOfGame === undefined) {
+      switchPlayerTurn();
+      printNewRound();
+    }
   };
 
   // Initial play game message
@@ -179,6 +182,7 @@ const gameController = function (playerOneName, playerTwoName) {
 
 const displayController = (function () {
   const boardDiv = document.querySelector(".board-container");
+  const playerTurnDiv = document.querySelector(".player-turn-container");
   let currentGameController;
 
   const openModal = function () {
@@ -208,7 +212,6 @@ const displayController = (function () {
     const activePlayerMarker = currentGameController.getActivePlayer().marker;
     // console.log(activePlayer);
 
-    const playerTurnDiv = document.querySelector(".player-turn-container");
     playerTurnDiv.innerText = ` ${activePlayerName}'s turn! (${activePlayerMarker})`;
 
     board.forEach((row, index) => {
@@ -252,6 +255,7 @@ const displayController = (function () {
 
   return {
     disableBoard,
+    playerTurnDiv,
   };
 })();
 
@@ -264,11 +268,9 @@ Features:
  • Unsolved:
  Start here tomorrow (04/23)
  Game Keeps Running
- --- Game keeps running after someone has won.
- --- Look into ending game (and board functionality) after someone wins.
- --- Announce winner in the player Box
- --- Maybe include highlights when the box becomes a winner box
- --- nNeed to remove event listeners from board.
+ --- ✅ Remove event listeners from board upon win or tie
+ --- Display "win" or "tie" message in the player-turn-div
+ --- Debug "tie" or "win" being called twice in a row (I have a hunch that this is happening due to my switchPlayerTurn hack. This hack basically re-called the player turn if the player was to click on a box which already had a value)
 
 
 Reset Board Button
