@@ -189,6 +189,8 @@ Distinct and fun.
   height: 5rem;
   width: 30rem;
   display: flex;
+  justify-content: center;
+  align-items: center;
   color: #ff6f61;
   border-radius: 1rem;
   border: 0.4rem solid #eee8aa;
@@ -197,6 +199,7 @@ Distinct and fun.
 
 .header-container h2 {
   font-family: "PressStart2P";
+  font-size: 2rem;
 }
 
 .header-container,
