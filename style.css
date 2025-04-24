@@ -199,6 +199,7 @@ Distinct and fun.
   border-radius: 1rem;
   border: 0.4rem solid #eee8aa;
   background-color: #000000;
+  color: #ff6f61;
 }
 
 .header-container {
@@ -209,7 +210,6 @@ Distinct and fun.
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  color: #ff6f61;
 }
 
 .header-container h2 {
@@ -229,7 +229,6 @@ Distinct and fun.
   align-items: center;
   height: 2rem;
   width: 25rem;
-  color: #ff6f61;
   font-family: "VT323";
   font-size: 2rem;
   overflow-x: auto;
@@ -265,4 +264,17 @@ Distinct and fun.
   font-family: "VT323";
   font-size: 4rem;
   border: none;
+}
+
+/* Reset Button */
+.reset-button {
+  font-family: "VT323";
+  font-size: 2rem;
+  height: 3rem;
+  width: 10rem;
+  border-radius: 1rem;
+  color: #000000;
+  background-color: #ff6f61;
+  border: 5px solid #000000;
+  outline: 5px solid #eee8aa;
 }
