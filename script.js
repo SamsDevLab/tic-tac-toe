@@ -244,16 +244,30 @@ const displayController = (function () {
     updateScreen();
   }
 
-  boardDiv.addEventListener("click", clickHandlerBoard);
+  const enableBoard = function () {
+    boardDiv.addEventListener("click", clickHandlerBoard);
+  };
 
   const disableBoard = function () {
     boardDiv.removeEventListener("click", clickHandlerBoard);
   };
 
+  const resetBoard = function () {
+    const endGameModal = document.querySelector(".end-game-modal");
+    endGameModal.close();
+
+    const board = currentGameController.getBoard();
+
+    board.forEach((row) => row.forEach((cell, index) => (row[index] = "")));
+    updateScreen();
+    enableBoard();
+  };
+
   const resetButton = document.querySelector(".reset-button");
-  resetButton.addEventListener("click", () => console.log("AYY OL' GUURLLL"));
+  resetButton.addEventListener("click", resetBoard);
 
   openPlayerModal();
+  enableBoard();
 
   return {
     disableBoard,
@@ -268,7 +282,6 @@ Features:
  Bugs:
 
  • Unsolved:
- Start here tomorrow (04/23)
  Game Keeps Running
  --- ✅ Remove event listeners from board upon win or tie
  --- Display "win" or "tie" message in the player-turn-div
