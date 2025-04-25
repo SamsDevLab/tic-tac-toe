@@ -11,12 +11,11 @@
   font: inherit;
 }
 
-html {
-  color-scheme: dark light;
-}
-
+html,
 body {
-  min-height: 100vh;
+  color-scheme: dark light;
+  height: 100%;
+  overflow: hidden;
 }
 
 h1,
@@ -53,36 +52,6 @@ select {
 /*******************************
         PROJECT BELOW
 *******************************/
-
-/*
-Color Palette:
-
-- Game Board
-Dirt Patch	
-Muted Warm Brown	
-#8b5a2b	
-A classic SNES dirt tone, slightly reddish.
-
-- Board Tiles
-Dark Purple or Blue Base	
-#2e003e or #001f3f	
-Deep background so neon glows pop.
-
-- Tile Outlines	
-Neon Pink or Cyan	
-#ff6ec7 or #00f0ff	
-Glows well on dark tiles.
-
-- Player 1 Mark	
-PSI Purple	
-#9c27b0	
-Fits the psychic theme.
-
-- Player 2 Mark	
-Alien Green or Funky Orange	
-#39ff14 or #ff9800
-Distinct and fun.
-*/
 
 /* Project Fonts */
 @font-face {
@@ -166,6 +135,7 @@ Distinct and fun.
 
 .form input:focus {
   outline: 2px solid #eee8aa;
+  border-radius: 0.1rem;
 }
 
 .start-game-button {
@@ -193,7 +163,7 @@ Distinct and fun.
   justify-content: center;
   align-items: flex-start;
   padding-top: 2rem;
-  font-size: 3.5rem;
+  font-size: 3rem;
   z-index: 3;
   font-family: "VT323";
 }
@@ -232,12 +202,6 @@ Distinct and fun.
 .header-container h2 {
   font-family: "PressStart2P";
   font-size: 2rem;
-}
-
-.header-container hr {
-  margin-top: 0.5rem;
-  width: 9rem;
-  border: 1px dashed #eee8aa;
 }
 
 .player-turn-container {
@@ -286,12 +250,8 @@ Distinct and fun.
 /* Reset Button */
 .reset-button {
   font-family: "VT323";
-  font-size: 2rem;
-  height: 3rem;
-  width: 10rem;
+  font-size: 2.5rem;
+  height: 4.5rem;
+  width: 9rem;
   border-radius: 1rem;
-  /* color: #000000;
-  background-color: #ff6f61;
-  border: 5px solid #000000;
-  outline: 5px solid #eee8aa; */
 }
