@@ -78,21 +78,22 @@ const gameController = function (playerOneName, playerTwoName) {
 
   const getActivePlayer = () => activePlayer;
 
-  const printNewRound = () => {
-    board.printBoard();
-    console.log(`${getActivePlayer().name}'s turn.`);
-  };
+  // const printNewRound = () => {
+  //   board.printBoard();
+  //   console.log(`${getActivePlayer().name}'s turn.`);
+  // };
 
   const playRound = (row, column) => {
     if (boardArray[row][column] !== "") {
-      console.log("That square is already taken! Try again!");
+      // console.log("That square is already taken! Try again!");
       switchPlayerTurn();
-    } else
-      console.log(
-        `${getActivePlayer().name} places "${
-          getActivePlayer().marker
-        }" into row ${row}, column ${column}.`
-      );
+    }
+    // else
+    //   console.log(
+    //     `${getActivePlayer().name} places "${
+    //       getActivePlayer().marker
+    //     }" into row ${row}, column ${column}.`
+    //   );
 
     board.placeMarker(getActivePlayer().marker, row, column);
 
@@ -120,23 +121,25 @@ const gameController = function (playerOneName, playerTwoName) {
         boardValues[value].includes(getActivePlayer().marker)
       );
 
-    const announceWinner = function () {
-      const winner = `${getActivePlayer().name} got three in a row! ${
-        getActivePlayer().name
-      } wins the game!`;
+    const openEndGameModal = function (endGameMessage) {
+      const endGameModal = document.querySelector(".end-game-modal");
+      endGameModal.show();
+      const finalMessage = document.querySelector(".final-message");
+      finalMessage.innerText = endGameMessage;
+    };
 
-      console.log(winner);
+    const announceWinner = function () {
+      openEndGameModal(`${getActivePlayer().name} WON!`);
+    };
+
+    const announceTie = function () {
+      openEndGameModal("Tie Game!");
     };
 
     const checkForTie = function (boardValues) {
       if (boardValues.every((index) => index !== "")) {
         return true;
       }
-    };
-
-    const announceTie = function () {
-      const tieGame = "Tie Game!";
-      console.log(tieGame);
     };
 
     function checkForWinner() {
@@ -159,15 +162,14 @@ const gameController = function (playerOneName, playerTwoName) {
     }
 
     //Switch player turn
-    checkForWinner();
     if (checkForWinner().endOfGame === undefined) {
       switchPlayerTurn();
-      printNewRound();
+      // printNewRound();
     }
   };
 
   // Initial play game message
-  printNewRound();
+  // printNewRound();
 
   return {
     playRound,
@@ -185,7 +187,7 @@ const displayController = (function () {
   const playerTurnDiv = document.querySelector(".player-turn-container");
   let currentGameController;
 
-  const openModal = function () {
+  const openPlayerModal = function () {
     const modal = document.querySelector(".player-modal");
     modal.showModal();
 
@@ -248,10 +250,10 @@ const displayController = (function () {
     boardDiv.removeEventListener("click", clickHandlerBoard);
   };
 
-  // const resetButton = document.querySelector(".reset-button");
-  // resetButton.addEventListener("click", resetGame);
+  const resetButton = document.querySelector(".reset-button");
+  resetButton.addEventListener("click", () => console.log("AYY OL' GUURLLL"));
 
-  openModal();
+  openPlayerModal();
 
   return {
     disableBoard,
