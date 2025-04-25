@@ -110,8 +110,7 @@ Distinct and fun.
   width: 100vw;
 }
 
-/* Modal Begins */
-
+/* Player Modal */
 .player-modal:open {
   display: flex;
   flex-direction: column;
@@ -180,7 +179,24 @@ Distinct and fun.
   outline: 2px solid #eee8aa;
 }
 
-/* Modal Ends */
+/* End Game Modal */
+.end-game-modal:open {
+  height: 11rem;
+  width: 30rem;
+  left: 35%;
+  top: 20%;
+  background-color: #000000;
+  color: #ba55d3;
+  border-radius: 1rem;
+  border: 0.4rem solid #eee8aa;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 2rem;
+  font-size: 3.5rem;
+  z-index: 3;
+  font-family: "VT323";
+}
 
 /* Header Text */
 .game-container {
