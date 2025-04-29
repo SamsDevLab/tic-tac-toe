@@ -31,6 +31,7 @@ const gameBoard = (function () {
 const gameController = function (playerOneName, playerTwoName) {
   const board = gameBoard;
   const boardArray = board.getBoard();
+  // const boardValues = boardArray.flat();
   const removeBoardEventListeners = displayController.disableBoard;
 
   const players = [
@@ -92,40 +93,46 @@ const gameController = function (playerOneName, playerTwoName) {
 
     const announceWinner = function () {
       openEndGameModal(`${getActivePlayer().name} WON!`);
+      removeBoardEventListeners();
     };
 
     const announceTie = function () {
+      removeBoardEventListeners();
       openEndGameModal("Tie Game!");
     };
 
-    const checkForTie = function (boardValues) {
+    const checkForFullBoard = function (boardValues) {
       if (boardValues.every((index) => index !== "")) {
         return true;
-      }
+      } else return false;
     };
 
-    function checkForWinner() {
-      const boardValues = boardArray.flat();
-      let endOfGame;
-
-      winningCombos.forEach((combo) => {
-        if (includesAll(boardValues, combo) === true) {
-          announceWinner();
-          removeBoardEventListeners();
-          endOfGame = true;
-        } else if (checkForTie(boardValues) === true) {
-          announceTie();
-          removeBoardEventListeners();
-          endOfGame = true;
-        }
-      });
+    function checkForWinningCombo(boardValues) {
+      const endOfGame = winningCombos.some((combo) =>
+        includesAll(boardValues, combo)
+      );
 
       return { endOfGame };
     }
 
-    if (checkForWinner().endOfGame === undefined) {
-      switchPlayerTurn();
-    }
+    const checkForEndOfGame = function () {
+      const boardValues = boardArray.flat();
+
+      const fullBoard = checkForFullBoard(boardValues);
+      const winCombo = checkForWinningCombo(boardValues).endOfGame;
+
+      if (fullBoard === false && winCombo === false) {
+        switchPlayerTurn();
+      } else if (fullBoard === false && winCombo === true) {
+        announceWinner();
+      } else if (fullBoard === true && winCombo === true) {
+        announceWinner();
+      } else if (fullBoard === true && winCombo === false) {
+        announceTie();
+      }
+    };
+
+    checkForEndOfGame();
   };
 
   return {
