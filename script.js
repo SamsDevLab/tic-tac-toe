@@ -156,8 +156,27 @@ const displayController = (function () {
     modal.showModal();
 
     const form = document.querySelector(".form");
+    const inputElements = document.querySelectorAll(".input");
+
+    inputElements.forEach((element) =>
+      element.addEventListener("keydown", (event) => {
+        if (event.key === " " && element.value.length === 0) {
+          event.preventDefault();
+          console.log(element);
+        }
+      })
+    );
+
+    inputElements.forEach((element) => {
+      element.addEventListener("blur", () => {
+        const trimmedElement = element.value.trim();
+        element.value = trimmedElement;
+      });
+    });
+
     form.addEventListener("submit", (event) => {
       event.preventDefault();
+
       const playerOne = document.querySelector("#player-one").value;
       const playerTwo = document.querySelector("#player-two").value;
 
